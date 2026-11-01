@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.py[cod]
+instance/*.db
+instance/*.sqlite3
+outputs/*.png
+outputs/*.json
+!outputs/.gitkeep
+.env
+.DS_Store

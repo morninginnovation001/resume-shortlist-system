@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Dashboard · TalentLens{% endblock %}
+{% block content %}
+<section class="page-heading"><div><div class="eyebrow">OVERVIEW</div><h1>Screen fairly. Review thoughtfully.</h1><p>Compare resume text with job requirements and keep a person responsible for every decision.</p></div><a class="btn primary" href="{{ url_for('screen') }}">＋ Screen a resume</a></section>
+<div class="notice"><strong>Demo data notice</strong><span>The dataset cards below summarize 5,000 synthetic feature records. They are not live applicants or production model results.</span></div>
+<section class="stats-grid">
+  <article class="stat-card"><div class="stat-label">Synthetic records</div><div class="stat-value">{{ "{:,.0f}".format(summary.rows) }}</div><div class="stat-foot">Dataset feature vectors</div><span class="stat-icon purple">▤</span></article>
+  <article class="stat-card"><div class="stat-label">Job role families</div><div class="stat-value">{{ summary.roles }}</div><div class="stat-foot">Represented in dataset.csv</div><span class="stat-icon teal">⌘</span></article>
+  <article class="stat-card"><div class="stat-label">Synthetic positive labels</div><div class="stat-value">{{ "{:,.0f}".format(summary.shortlisted) }}</div><div class="stat-foot">{{ summary.shortlist_rate|pct }} of synthetic rows</div><span class="stat-icon orange">✓</span></article>
+  <article class="stat-card"><div class="stat-label">Mean simulated score</div><div class="stat-value">{{ "%.1f"|format(summary.mean_score) }}<small>/100</small></div><div class="stat-foot">Not an outcome or quality measure</div><span class="stat-icon blue">◌</span></article>
+</section>
+<section class="two-col dashboard-bottom">
+  <article class="panel"><div class="panel-heading"><div><h2>Recent human reviews</h2><p>Live records from this browser-based demo</p></div><a class="text-link" href="{{ url_for('candidates') }}">View all →</a></div>
+    {% if records %}<div class="table-wrap"><table><thead><tr><th>Resume</th><th>Role</th><th>Score</th><th>Review</th></tr></thead><tbody>{% for r in records %}<tr><td><a href="{{ url_for('candidate_detail', candidate_id=r.id) }}" class="row-link">{{ r.resume_label }}</a><div class="muted tiny">#{{ r.id }}</div></td><td>{{ r.job_role|replace('_',' ') }}</td><td><strong>{{ "%.1f"|format(r.predicted_score) }}</strong></td><td><span class="status {{ 'done' if r.review_status == 'Reviewed' else 'pending' }}">{{ r.review_status }}</span></td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty-state"><div class="empty-icon">⌕</div><h3>No resume reviews yet</h3><p>Start by uploading a text-based PDF or TXT resume and a job description.</p><a href="{{ url_for('screen') }}" class="btn secondary">Start first screening</a></div>{% endif %}
+  </article>
+  <article class="panel workflow-panel"><div class="panel-heading"><div><h2>How it works</h2><p>Explainable, human-in-the-loop workflow</p></div></div>
+    <div class="step-row"><span class="step-number">01</span><div><strong>Provide context</strong><p>Upload a resume and paste the job description.</p></div></div>
+    <div class="step-row"><span class="step-number">02</span><div><strong>Compare relevant evidence</strong><p>Role skill coverage and TF-IDF lexical similarity create a transparent fit signal.</p></div></div>
+    <div class="step-row"><span class="step-number">03</span><div><strong>Review before action</strong><p>A reviewer records a decision and rationale. The score never finalizes a hiring outcome.</p></div></div>
+    <a class="text-link bottom-link" href="{{ url_for('fairness') }}">Read fairness and limitations →</a>
+  </article>
+</section>
+{% endblock %}

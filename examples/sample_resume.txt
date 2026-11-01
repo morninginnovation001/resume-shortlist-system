@@ -1,0 +1,15 @@
+SAMPLE RESUME — FICTIONAL DEMO PERSON
+
+Summary
+Software engineer with 4 years of experience building backend services and internal tools.
+
+Skills
+Python, JavaScript, REST APIs, Git, Docker, SQL, testing, data structures and algorithms.
+
+Projects
+Built a REST API for a demo inventory service; wrote unit tests; worked with Git-based code review and Docker for local development.
+
+Education
+Bachelor of Technology in Computer Science.
+
+This text is fictional and intended only to test the project locally.

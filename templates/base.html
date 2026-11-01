@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}TalentLens · Resume Screening{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">TL</span><span>TalentLens<small>RESUME INTELLIGENCE</small></span></a>
+    <nav>
+      <a class="{% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}"><span>▦</span> Dashboard</a>
+      <a class="{% if request.endpoint == 'screen' %}active{% endif %}" href="{{ url_for('screen') }}"><span>＋</span> Screen a resume</a>
+      <a class="{% if request.endpoint in ['candidates','candidate_detail'] %}active{% endif %}" href="{{ url_for('candidates') }}"><span>☷</span> Candidate reviews</a>
+      <a class="{% if request.endpoint == 'fairness' %}active{% endif %}" href="{{ url_for('fairness') }}"><span>◈</span> Fairness & ethics</a>
+    </nav>
+    <div class="sidebar-bottom"><div class="demo-chip"><span class="dot"></span> LOCAL DEMO</div><p>Recommendations support a human decision. They do not make hiring decisions.</p></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><div><div class="eyebrow">AI-ASSISTED TALENT WORKFLOW</div><div class="topbar-title">Resume screening workspace</div></div><div class="topbar-right"><span class="privacy-pill">● Local-first · no resume file storage</span></div></header>
+    <div class="content-wrap">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+      <footer class="footer">TalentLens demo · Synthetic dataset · Human review required · Not validated for real hiring</footer>
+    </div>
+  </main>
+</body>
+</html>

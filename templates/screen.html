@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Screen a resume · TalentLens{% endblock %}
+{% block content %}
+<section class="page-heading"><div><div class="eyebrow">NEW SCREENING</div><h1>Compare a resume to a role</h1><p>Use job-related evidence only. The uploaded file is processed in memory and not stored by this demo.</p></div><span class="pill">PDF / TXT · max 5 MB</span></section>
+<div class="two-col screen-layout">
+  <section class="panel form-panel">
+    <form method="post" enctype="multipart/form-data" class="screen-form">
+      <label for="resume_file">Resume file <span class="required">*</span></label><div class="upload-box"><div class="upload-symbol">↑</div><div><strong>Choose a resume file</strong><p>Text-based PDF or UTF-8 TXT. Scanned PDFs may not extract.</p><input id="resume_file" name="resume_file" type="file" accept=".pdf,.txt,application/pdf,text/plain" required></div></div>
+      <label for="job_role">Target job family</label><select id="job_role" name="job_role" required>{% for role in roles %}<option value="{{ role }}" {% if role == 'Software_Engineer' %}selected{% endif %}>{{ role|replace('_',' ') }}</option>{% endfor %}</select>
+      <label for="job_description">Job description <span class="required">*</span></label><textarea id="job_description" name="job_description" rows="9" minlength="20" required placeholder="Paste the job responsibilities, required skills, and qualifications here..."></textarea>
+      <div class="form-help">Include concrete requirements (e.g., Python, SQL, API testing). If at least three recognized skill terms are detected in the job description, the matcher focuses on those terms; otherwise it uses the selected role's baseline skill list.</div>
+      <button class="btn primary full" type="submit">Analyze resume →</button>
+    </form>
+  </section>
+  <aside class="panel explainer-panel"><div class="eyebrow">SCORING EXPLANATION</div><h2>How the demo score is built</h2>
+    <div class="score-method"><div class="score-method-head"><strong>Required-skill coverage</strong><b>65%</b></div><div class="bar-track"><div class="bar-fill purple-fill" style="width:65%"></div></div><p>Share of the detected required skills found as text matches.</p></div>
+    <div class="score-method"><div class="score-method-head"><strong>TF-IDF similarity</strong><b>35%</b></div><div class="bar-track"><div class="bar-fill teal-fill" style="width:35%"></div></div><p>Lexical overlap between the resume and job description using word and two-word features.</p></div>
+    <div class="callout amber"><strong>Not a hiring decision</strong><p>The score is a prototype signal, not a validated assessment of ability. It may miss synonyms, context, seniority and transferable skills. Human review is required.</p></div>
+    <h3>Privacy by design</h3><ul class="clean-list"><li>Original resume file is not written to disk.</li><li>Full resume text is not saved to the SQLite database.</li><li>The record stores only filename, job role, scores, matched terms, and review notes.</li><li>Do not upload sensitive or real applicant data to an unapproved environment.</li></ul>
+  </aside>
+</div>
+{% endblock %}

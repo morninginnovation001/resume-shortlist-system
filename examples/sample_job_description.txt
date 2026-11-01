@@ -1,0 +1,1 @@
+We are looking for a Software Engineer to build and maintain backend services. Required skills include Python, REST API development, Git, Docker, SQL, testing, and data structures. Candidates should collaborate with product and engineering teams and write maintainable, tested code.

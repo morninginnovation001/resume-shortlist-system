@@ -1,0 +1,9 @@
+column_name,data_type,sample_value_1,sample_value_2,sample_value_3,nullable,description
+resume_id,string,R0001,R0500,R5000,No,Unique synthetic resume record identifier. It does not identify a real person.
+job_role,category/string,Data_Analyst,Software_Engineer,ML_Engineer,No,Target job family associated with the resume feature vector. Ten role categories are represented.
+years_exp,integer,3,5,9,No,Synthetic years of relevant professional experience; bounded from 0 to 15 years.
+skills_matched,integer,8,6,11,No,"Count of job-description skills matched to the resume, on a synthetic scale from 3 to 15."
+education_score,integer,73,67,89,No,"Synthetic education-fit score on a 0-100 scale, restricted here to 60-100. It is a proxy feature, not a judgement of a real person."
+keyword_density,float,0.129,0.747,0.713,No,Fraction of relevant keywords found in the resume text representation; bounded between 0.100 and 0.900.
+predicted_score,float,46.1,97.7,61.1,No,"Simulated overall fit score (0-100). For the 4,500 generated rows it follows a documented weighted feature recipe plus random variation; it is not a validated production prediction."
+shortlisted,binary integer,0,1,1,No,Synthetic target label: 1 indicates shortlisted and 0 indicates not shortlisted. The original 500 labels are preserved; 3% of added rows contain controlled label noise for robustness testing.
